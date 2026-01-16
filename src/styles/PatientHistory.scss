@@ -1,0 +1,176 @@
+// Cores do sistema
+$primary-color: #154277;
+$secondary-color: #173f5f;
+$accent-color: #3b82f6;
+$background-color: #f8fafc;
+$text-color: #173f5f;
+$gradient-background: linear-gradient(120deg, rgba(245, 213, 37, 0.8), rgba(245, 131, 42, 0.8), rgba(237, 32, 36, 0.8));
+
+.patient-history-page {
+  min-height: 100vh;
+  background: $background-color;
+  color: $text-color;
+  position: relative;
+  overflow-x: hidden;
+
+  // Estilo de fundo semelhante ao Landing
+  &::before {
+    content: '';
+    position: fixed;  // Mudança de absolute para fixed
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;  // Adicionar bottom: 0
+    height: 100%;  // Altura 100%
+    background: linear-gradient(135deg, 
+      rgba(33, 161, 160, 0.1), 
+      rgba(124, 195, 90, 0.1), 
+      rgba(245, 213, 37, 0.1), 
+      rgba(245, 131, 42, 0.1), 
+      rgba(237, 32, 36, 0.1)
+    );
+    z-index: 1;
+    opacity: 0.5;
+    pointer-events: none;  // Garantir que não interfira em cliques
+  }
+
+  .MuiContainer-root {
+    position: relative;
+    z-index: 10;
+    max-width: 1200px;
+  }
+
+  .MuiPaper-root {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+      0 8px 32px rgba(21, 66, 119, 0.15),
+      0 4px 16px rgba(21, 66, 119, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .MuiTypography-root {
+    color: $text-color;
+  }
+
+  .MuiButton-root {
+    &.MuiButton-contained {
+      background: $gradient-background;
+      color: #ffffff;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
+
+    &.MuiButton-outlined {
+      color: $primary-color;
+      border-color: $primary-color;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: rgba($primary-color, 0.05);
+        transform: translateY(-1px);
+      }
+    }
+  }
+
+  .MuiAccordion-root {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    box-shadow: 
+      0 4px 16px rgba(21, 66, 119, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+
+    &::before {
+      display: none;
+    }
+
+    .MuiAccordionSummary-root {
+      background: rgba($primary-color, 0.05);
+      border-bottom: 1px solid rgba($primary-color, 0.1);
+    }
+  }
+
+  .MuiChip-root {
+    &.MuiChip-colorPrimary {
+      background: $primary-color;
+      color: white;
+    }
+
+    &.MuiChip-colorSuccess {
+      background: #4caf50;
+      color: white;
+    }
+
+    &.MuiChip-colorWarning {
+      background: #ff9800;
+      color: white;
+    }
+
+    &.MuiChip-colorInfo {
+      background: $accent-color;
+      color: white;
+    }
+  }
+
+  .MuiCard-root {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba($primary-color, 0.1);
+    border-radius: 12px;
+    box-shadow: 
+      0 4px 16px rgba(21, 66, 119, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 
+        0 8px 24px rgba(21, 66, 119, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  // Estado vazio
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 16px;
+    text-align: center;
+
+    .MuiSvgIcon-root {
+      color: $primary-color;
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .MuiTypography-root {
+      color: $text-color;
+      margin-bottom: 1rem;
+    }
+  }
+
+  // Responsividade
+  @media (max-width: 600px) {
+    .MuiContainer-root {
+      padding: 0 16px;
+    }
+
+    .MuiPaper-root {
+      border-radius: 0;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "podostore-backend",
+  "version": "1.0.0",
+  "description": "Backend Node.js para integração PagBank",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "firebase": "^11.6.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

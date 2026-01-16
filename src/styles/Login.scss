@@ -1,0 +1,315 @@
+@import "./_variables";
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(21, 66, 119, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(21, 66, 119, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(21, 66, 119, 0);
+  }
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 0;
+  background: $background;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: $gradient-primary;
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    opacity: 0.05;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .login-paper {
+    width: 100%;
+    max-width: 500px;
+    border-radius: $border-radius-lg;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: $shadow-lg;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    transform: translateY(0);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.3s ease;
+    animation: fadeInUp 0.8s ease-out forwards;
+    z-index: 1;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: $shadow-lg, 0 20px 25px -5px rgba(21, 66, 119, 0.1),
+        0 10px 10px -5px rgba(21, 66, 119, 0.04);
+    }
+
+    .login-header {
+      background: $primary;
+      position: relative;
+      overflow: hidden;
+      padding: 24px 28px;
+      text-align: center;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: $gradient-primary;
+        background-size: 400% 400%;
+        animation: gradientAnimation 15s ease infinite;
+        opacity: 0.2;
+        z-index: 0;
+      }
+
+      h5 {
+        position: relative;
+        z-index: 1;
+        font-weight: 600;
+        color: white;
+        margin: 0;
+        font-size: 1.4rem;
+        letter-spacing: 0.3px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .login-form-container {
+      background: white;
+      padding: 28px;
+
+      .login-form {
+        width: 100%;
+
+        .form-row {
+          margin-bottom: 20px;
+          animation: fadeInUp 0.6s ease-out forwards;
+          opacity: 0;
+
+          &:nth-child(1) {
+            animation-delay: 0.2s;
+          }
+
+          &:nth-child(2) {
+            animation-delay: 0.4s;
+          }
+
+          .form-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: $text-secondary;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+
+            &::before {
+              content: "";
+              display: inline-block;
+              width: 4px;
+              height: 16px;
+              background: $primary;
+              margin-right: 8px;
+              border-radius: 2px;
+            }
+          }
+
+          .login-input {
+            .MuiOutlinedInput-root {
+              border-radius: $border-radius-md;
+              background-color: $background;
+              transition: all 0.3s ease;
+
+              &.Mui-focused {
+                background-color: white;
+
+                .MuiOutlinedInput-notchedOutline {
+                  border-color: $primary;
+                  border-width: 2px;
+                  box-shadow: 0 0 0 4px rgba(60, 174, 163, 0.1);
+                }
+              }
+
+              &:hover .MuiOutlinedInput-notchedOutline {
+                border-color: $primary-light;
+              }
+
+              .MuiOutlinedInput-notchedOutline {
+                border-color: #dbe4ed;
+                transition: all 0.3s ease;
+              }
+
+              input {
+                padding: 14px 16px;
+                font-size: 15px;
+
+                &::placeholder {
+                  color: $text-muted;
+                  opacity: 0.8;
+                }
+              }
+            }
+
+            .MuiFormHelperText-root {
+              margin-left: 2px;
+              font-size: 12px;
+              margin-top: 4px;
+            }
+          }
+        }
+
+        .remember-me {
+          margin: 0;
+          opacity: 0;
+          animation: fadeInUp 0.6s ease-out 0.6s forwards;
+
+          .MuiFormControlLabel-label {
+            font-size: 14px;
+            color: $text-secondary;
+          }
+
+          .MuiCheckbox-root {
+            padding: 6px;
+            color: $text-muted;
+
+            &.Mui-checked {
+              color: $primary;
+            }
+
+            .MuiSvgIcon-root {
+              font-size: 20px;
+            }
+          }
+        }
+
+        .login-actions {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: 32px;
+          opacity: 0;
+          animation: fadeInUp 0.6s ease-out 0.8s forwards;
+
+          .login-button {
+            background: linear-gradient(120deg, $primary, $primary-dark);
+            color: white;
+            text-transform: none;
+            font-weight: 600;
+            padding: 10px 30px;
+            font-size: 15px;
+            border-radius: $border-radius-md;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 12px rgba(60, 174, 163, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-width: 180px;
+
+            &::before {
+              content: "";
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: linear-gradient(
+                120deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0) 100%
+              );
+              transform: translateX(-100%);
+              transition: transform 0.8s;
+            }
+
+            &:hover {
+              background: linear-gradient(120deg, $primary-dark, $primary-dark);
+              box-shadow: 0 6px 16px rgba(60, 174, 163, 0.4);
+              transform: translateY(-2px);
+
+              &::before {
+                transform: translateX(100%);
+              }
+            }
+
+            &:active {
+              transform: translateY(0);
+              box-shadow: 0 2px 8px rgba(60, 174, 163, 0.3);
+            }
+          }
+
+          .forgot-password {
+            margin-top: 16px;
+            a {
+              color: $secondary;
+              text-decoration: none;
+              font-size: 14px;
+              font-weight: 500;
+              transition: all 0.2s ease;
+              padding: 5px;
+              border-radius: $border-radius-sm;
+
+              &:hover {
+                color: $primary-dark;
+                background-color: rgba(60, 174, 163, 0.05);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .login-footer {
+      background: $background-dark;
+      padding: 14px;
+      border-top: 1px solid rgba(131, 177, 195, 0.1);
+      display: flex;
+      justify-content: center;
+
+      .MuiTypography-body2 {
+        color: $text-muted;
+        font-size: 12px;
+        font-weight: 500;
+      }
+    }
+  }
+}

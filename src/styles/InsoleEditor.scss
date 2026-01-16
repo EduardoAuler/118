@@ -1,0 +1,1077 @@
+@import "./_variables";
+
+.insole-editor-container {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+	font-family: "Arial", sans-serif;
+}
+
+/* Barra de progresso */
+.progress-bar {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 30px;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: $border-radius-lg;
+	overflow: hidden;
+	box-shadow: $shadow-md;
+	position: relative;
+}
+
+.step {
+	flex: 1;
+	text-align: center;
+	padding: 15px 10px;
+	color: white;
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.5s ease;
+	position: relative;
+	z-index: 1;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+	background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2));
+	clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+}
+
+/* Cores específicas para cada etapa */
+.step:nth-child(1) {
+	&.active,
+	&.completed {
+		background: $heat-map-1;
+		clip-path: polygon(0 0, 100% 0, 95% 100%, 0 100%);
+	}
+}
+
+.step:nth-child(2) {
+	&.active,
+	&.completed {
+		background: $heat-map-2;
+		clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+	}
+}
+
+.step:nth-child(3) {
+	&.active,
+	&.completed {
+		background: $heat-map-3;
+		clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+	}
+}
+
+.step:nth-child(4) {
+	&.active,
+	&.completed {
+		background: $heat-map-4;
+		clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+	}
+}
+
+.step:nth-child(5) {
+	&.active,
+	&.completed {
+		background: $heat-map-5;
+		clip-path: polygon(5% 0, 100% 0, 100% 100%, 0 100%);
+	}
+}
+
+.step:hover:not(.active):not(.completed) {
+	background: linear-gradient(
+		135deg,
+		rgba(255, 255, 255, 0.2),
+		rgba(255, 255, 255, 0.1)
+	);
+}
+
+.step::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	right: -15px;
+	width: 30px;
+	height: 100%;
+	background-color: inherit;
+	transform: skew(-20deg);
+	z-index: 1;
+	transition: background-color 0.5s ease;
+	display: none;
+}
+
+.step:last-child::after {
+	display: none;
+}
+
+/* Gradiente de transição entre os passos */
+.step::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(
+		90deg,
+		rgba($heat-map-1, 0.9),
+		rgba($heat-map-2, 0.9),
+		rgba($heat-map-3, 0.9),
+		rgba($heat-map-4, 0.9),
+		rgba($heat-map-5, 0.9)
+	);
+	opacity: 0;
+	transition: opacity 0.5s ease;
+	z-index: 0;
+	clip-path: inherit;
+}
+
+.step:hover::before {
+	opacity: 0.3;
+}
+
+/* Garantir que o texto fique visível */
+.step span {
+	position: relative;
+	z-index: 2;
+	display: block;
+	padding: 0 10px;
+}
+
+/* Cabeçalho do editor */
+.editor-header {
+	background-color: #ffc107;
+	color: #333;
+	padding: 10px 15px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+	text-align: center;
+}
+
+.editor-header h2 {
+	margin: 0;
+	font-size: 20px;
+}
+
+/* Conteúdo de cada etapa */
+.editor-content {
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	padding: 20px;
+	margin-bottom: 20px;
+	min-height: 400px;
+	animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.step-content h3 {
+	margin-top: 0;
+	color: #333;
+	border-bottom: 2px solid #eee;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+}
+
+/* Formulário de informações */
+.info-form {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+}
+
+.form-group label {
+	margin-bottom: 5px;
+	font-weight: bold;
+	color: #555;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 16px;
+}
+
+.form-group select {
+	background-color: white;
+	cursor: pointer;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+	background-repeat: no-repeat;
+	background-position: right 12px center;
+	background-size: 16px;
+	padding-right: 40px;
+	transition: all 0.3s ease;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group select:hover {
+	border-color: #2196f3;
+	box-shadow: 0 4px 8px rgba(33, 150, 243, 0.2);
+}
+
+.form-group select:focus {
+	outline: none;
+	border-color: #2196f3;
+	box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+	background-color: #f8f9fa;
+}
+
+.form-group select option {
+	padding: 12px;
+	font-size: 16px;
+	background-color: white;
+	color: #333;
+}
+
+.form-group select option:hover {
+	background-color: #e3f2fd;
+}
+
+.form-group select option:checked {
+	background-color: #2196f3;
+	color: white;
+}
+
+.form-group textarea {
+	min-height: 100px;
+	resize: vertical;
+}
+
+/* Área de upload */
+.upload-area {
+	border: 2px dashed #bbb;
+	padding: 10px;
+	text-align: center;
+	border-radius: 5px;
+	background-color: #f9f9f9;
+	cursor: pointer;
+	min-height: 600px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	position: relative;
+	box-sizing: border-box;
+}
+
+.upload-area p {
+	margin: 10px 0 0;
+	color: #777;
+}
+
+/* Adicionar estilos para a preview da imagem */
+.image-preview {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	min-height: 550px;
+	background-color: rgba(0, 0, 0, 0.02);
+}
+
+.image-preview img {
+	max-width: 100%;
+	max-height: 550px;
+	object-fit: contain;
+	margin: 0;
+	padding: 0;
+	background-color: white;
+}
+
+.btn-change-image {
+	padding: 8px 16px;
+	background-color: #2196f3;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 14px;
+	transition: background-color 0.3s;
+	position: absolute;
+	bottom: 15px;
+	right: 15px;
+	z-index: 10;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-change-image:hover {
+	background-color: #0d8bf2;
+}
+
+/* Área de enquadramento e guias */
+.framing-area,
+.guides-area {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 600px;
+}
+
+.insole-image-container {
+	position: relative;
+	width: 100%;
+	height: 600px;
+	max-width: 600px;
+	margin: 0 auto;
+	border: 1px solid #ddd;
+	background-color: #f9f9f9;
+	border-radius: 5px;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.foot-image {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	z-index: 1;
+}
+
+.insole-svg-container {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.insole-svg {
+	transform-origin: center;
+}
+
+/* Estilos para a imagem de fundo arrastável nas etapas 2 e 3 */
+.foot-background {
+	cursor: move !important;
+	opacity: 0.9;
+	transition: opacity 0.3s;
+	pointer-events: auto;
+	border: 2px solid transparent;
+	border-image: $gradient-border-diagonal;
+	border-image-slice: 1;
+}
+
+.foot-background:hover {
+	opacity: 1;
+}
+
+.background-container {
+	pointer-events: all;
+}
+
+/* Contorno da palmilha mais visível na etapa de enquadramento */
+#insole-path {
+	stroke-width: 3px;
+	stroke: rgba(33, 25, 21, 0.8);
+	fill: rgba(255, 255, 255, 0.05);
+	pointer-events: none;
+}
+
+/* Destacar contorno da palmilha */
+#insole-path-guides,
+#insole-path-pieces {
+	stroke-width: 2px;
+	stroke: #211915;
+	fill: none;
+	pointer-events: none;
+}
+
+/* Instruções mais destacadas */
+.instruction-text {
+	background-color: #fff9c4;
+	padding: 15px;
+	border-radius: 5px;
+	border-left: 4px solid #ffc107;
+	margin-bottom: 20px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.instruction-text strong {
+	color: #d32f2f;
+}
+
+/* Melhorar os controles de zoom */
+.zoom-controls {
+	position: absolute;
+	bottom: 15px;
+	right: 15px;
+	display: flex;
+	gap: 8px;
+	z-index: 10;
+	background: rgba(255, 255, 255, 0.8);
+	padding: 8px;
+	border-radius: 25px;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.zoom-controls button {
+	min-width: 48px;
+	padding: 0 12px;
+	height: 40px;
+	border-radius: 20px;
+	background-color: white;
+	border: 1px solid #ccc;
+	font-size: 16px;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.2s;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	white-space: nowrap;
+}
+
+.zoom-controls button:last-child {
+	min-width: 64px;
+}
+
+.zoom-controls button:hover {
+	background-color: #f0f0f0;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Editor de peças */
+.pieces-editor {
+	display: flex;
+	gap: 20px;
+	padding: 20px;
+	border: 3px solid transparent;
+	border-image: $gradient-border-vertical;
+	border-image-slice: 1;
+}
+
+.pieces-selection {
+	flex: 1;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+	gap: 10px;
+	border: 2px solid transparent;
+	border-image: $gradient-border-subtle;
+	border-image-slice: 1;
+	padding: 15px;
+	border-radius: 5px;
+	background-color: #f9f9f9;
+	max-height: 400px;
+	overflow-y: auto;
+}
+
+.piece-item {
+	width: 70px;
+	height: 70px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+	border-radius: 5px;
+	padding: 8px;
+	cursor: pointer;
+	transition: all 0.2s;
+	position: relative;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+	&.selected {
+		border: 2px solid transparent;
+		border-image: $gradient-border;
+		border-image-slice: 1;
+		background-color: rgba(76, 175, 80, 0.1);
+	}
+}
+
+.piece-item:hover {
+	background-color: #f5f5f5;
+	border: 1px solid #ddd;
+	transform: none;
+	box-shadow: none;
+}
+
+.piece-item img {
+	width: 40px;
+	height: 40px;
+	object-fit: contain;
+	margin-bottom: 5px;
+}
+
+.piece-item span {
+	font-size: 10px;
+	text-align: center;
+}
+
+.insole-preview {
+	flex: 1;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 400px;
+	background-color: #f5f5f5;
+}
+
+/* Lista de peças selecionadas */
+.selected-pieces-list {
+	margin-top: 20px;
+	border: 2px solid transparent;
+	border-image: $gradient-border-reverse;
+	border-image-slice: 1;
+	border-radius: 5px;
+	padding: 15px;
+}
+
+.selected-pieces-list h4 {
+	margin-top: 0;
+	margin-bottom: 10px;
+	font-size: 16px;
+	color: #333;
+}
+
+.selected-pieces-list ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.selected-pieces-list li {
+	padding: 5px 0;
+	border-bottom: 1px solid #eee;
+}
+
+.selected-pieces-list li:last-child {
+	border-bottom: none;
+}
+
+/* Botões de navegação */
+.navigation-buttons {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 20px;
+	padding: 15px;
+	background-color: #f8f8f8;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+	border: 2px solid transparent;
+	border-image: $gradient-border-subtle;
+	border-image-slice: 1;
+}
+
+.btn-prev,
+.btn-next,
+.btn-save,
+.btn-print {
+	padding: 12px 24px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: all 0.3s ease;
+	font-weight: 500;
+}
+
+.btn-prev {
+	background-color: #f5f5f5;
+	color: #333;
+	border: 1px solid #ddd;
+}
+
+.btn-prev:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.btn-next {
+	background-color: #2196f3;
+	color: white;
+	box-shadow: 0 2px 5px rgba(33, 150, 243, 0.3);
+}
+
+.btn-save {
+	background-color: #4caf50;
+	color: white;
+	box-shadow: 0 2px 5px rgba(76, 175, 80, 0.3);
+}
+
+.btn-print {
+	background-color: #ff9800;
+	color: white;
+	box-shadow: 0 2px 5px rgba(255, 152, 0, 0.3);
+	margin-right: 10px;
+}
+
+.btn-prev:hover:not(:disabled) {
+	background-color: #e0e0e0;
+	transform: translateY(-2px);
+}
+
+.btn-next:hover {
+	background-color: #0b7dda;
+	transform: translateY(-2px);
+}
+
+.btn-save:hover {
+	background-color: #45a049;
+	transform: translateY(-2px);
+}
+
+.btn-print:hover {
+	background-color: #f57c00;
+	transform: translateY(-2px);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+	.pieces-editor {
+		flex-direction: column;
+	}
+
+	.step {
+		font-size: 12px;
+		padding: 10px 5px;
+	}
+
+	.step::after {
+		right: -10px;
+		width: 20px;
+	}
+}
+
+.loading {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	font-size: 24px;
+	color: #666;
+}
+
+.upload-placeholder {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	min-height: 550px;
+}
+
+.upload-placeholder p {
+	margin-bottom: 20px;
+	color: #666;
+}
+
+.btn-back,
+.btn-upload {
+	padding: 10px 20px;
+	background-color: #2196f3;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s;
+}
+
+.btn-back:hover,
+.btn-upload:hover {
+	background-color: #0b7dda;
+}
+
+/* Melhorias para visualização das peças na preview */
+.insole-preview image {
+	cursor: pointer;
+	transition: transform 0.2s ease;
+}
+
+.insole-preview image:hover {
+	transform: scale(1.1);
+}
+
+/* Estilo para a mensagem de relação de peças vazia */
+.selected-pieces-list ul:empty::after {
+	content: "Nenhuma peça selecionada";
+	display: block;
+	padding: 10px 0;
+	color: #999;
+	font-style: italic;
+}
+
+/* Elementos arrastaveis */
+.draggable {
+	cursor: move;
+}
+
+/* Peças */
+.piece-image {
+	cursor: move;
+	transform-origin: center;
+	pointer-events: all; /* Peças são sempre interativas quando visíveis */
+}
+
+.piece-image.selected {
+	outline: 2px dashed #2196f3;
+	outline-offset: 3px;
+}
+
+/* Estilos para as alças das guias */
+.guide-line,
+.guide-line-reference {
+	pointer-events: none;
+	stroke-width: 1px;
+}
+
+.guide-line {
+	stroke-width: 2px;
+}
+
+.guide-line-reference {
+	opacity: 0.5;
+	stroke-dasharray: 5, 5;
+}
+
+.guide-handle {
+	cursor: move;
+	stroke: white;
+	stroke-width: 2px;
+	filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+	/* pointer-events controlados via style no componente */
+}
+
+.guide-handle:hover {
+	filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4)) brightness(1.1);
+}
+
+/* Controles de redimensionamento/rotação para as peças */
+.resize-handle,
+.rotate-handle {
+	stroke: white;
+	stroke-width: 1.5px;
+	r: 7;
+	opacity: 0.9;
+	pointer-events: all; /* Alças são sempre interativas quando visíveis */
+	transition: r 0.2s, opacity 0.2s, fill 0.2s; /* Restaurar transição suave */
+}
+
+.resize-handle {
+	fill: #2196f3;
+}
+
+.rotate-handle {
+	fill: #ff9800;
+	cursor: alias;
+}
+
+/* Restaurar feedback visual no hover das alças */
+.resize-handle:hover,
+.rotate-handle:hover {
+	opacity: 1;
+	r: 8;
+}
+
+.resize-handle:hover {
+	fill: #1976d2;
+}
+
+.rotate-handle:hover {
+	fill: #f57c00;
+}
+
+.resize-handle[data-position="top-left"],
+.resize-handle[data-position="bottom-right"] {
+	cursor: nwse-resize;
+}
+
+.resize-handle[data-position="top-right"],
+.resize-handle[data-position="bottom-left"] {
+	cursor: nesw-resize;
+}
+
+/* Manter apenas a linha de contorno para item selecionado, sem !important */
+.piece-image.selected {
+	outline: 2px dashed #2196f3;
+	outline-offset: 3px;
+}
+
+/* Manter estilos base da barra de progresso sem !important */
+.progress-bar,
+.step,
+.step.active,
+.step.completed {
+	/* Estilos originais sem transition: none !important */
+}
+.step:hover:not(.active) {
+	background-color: #d0d0d0; /* Manter hover normal */
+}
+
+/* Instução para manter proporção */
+.resize-instruction {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	background-color: rgba(255, 255, 255, 0.8);
+	border-radius: 4px;
+	padding: 4px 8px;
+	font-size: 12px;
+	color: #333;
+	z-index: 5;
+}
+
+/* Styles for piece selection */
+.pieces-selection {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-bottom: 20px;
+	background-color: #f5f5f5;
+	border-radius: 5px;
+	padding: 15px;
+}
+
+.piece-item {
+	width: 70px;
+	height: 70px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+	border-radius: 5px;
+	padding: 8px;
+	cursor: pointer;
+	transition: all 0.2s;
+	position: relative;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.piece-item:hover {
+	background-color: #f5f5f5;
+	border: 1px solid #ddd;
+	transform: none;
+	box-shadow: none;
+}
+
+.piece-item.selected {
+	border: 2px solid #4caf50;
+	background-color: rgba(76, 175, 80, 0.1);
+}
+
+.piece-item img {
+	width: 40px;
+	height: 40px;
+	object-fit: contain;
+	margin-bottom: 5px;
+}
+
+.piece-item span {
+	font-size: 10px;
+	text-align: center;
+}
+
+/* Improved styles for insole preview */
+.insole-preview {
+	margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+	.pieces-editor {
+		flex-direction: column;
+	}
+
+	.pieces-selection {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.insole-image-container {
+		max-width: 100%;
+		height: 500px;
+	}
+}
+
+/* Instructions tooltip */
+.instruction-tooltip {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	background: rgba(255, 255, 255, 0.9);
+	padding: 10px;
+	border-radius: 5px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	font-size: 12px;
+	max-width: 240px;
+	z-index: 10;
+}
+
+.instruction-tooltip ul {
+	margin: 5px 0 0;
+	padding-left: 20px;
+}
+
+.instruction-tooltip li {
+	margin-bottom: 3px;
+}
+
+/* Remover hover escalas nos controles */
+.resize-handle,
+.resize-handle:hover,
+.rotate-handle,
+.rotate-handle:hover {
+	transform: none;
+	transition: none;
+}
+
+/* Remover hover em todos os passos que usam SVG */
+.step:hover {
+	transform: none;
+	box-shadow: none;
+}
+
+/* Garantir que não há nenhum efeito de hover no SVG */
+.draggable,
+.draggable:hover {
+	transform: none !important;
+	transition: none !important;
+	filter: none !important;
+}
+
+/* Manter apenas a linha de contorno para item selecionado */
+.piece-image.selected {
+	outline: 2px dashed #2196f3;
+	outline-offset: 3px;
+	filter: none !important;
+}
+
+/* Remover todos os efeitos de hover da barra de progresso */
+.progress-bar,
+.step,
+.step:hover,
+.step.active,
+.step.completed {
+	transition: none !important;
+	transform: none !important;
+	box-shadow: none !important;
+}
+
+/* Melhorias na área de enquadramento */
+.framing-area {
+	min-height: 600px;
+}
+
+.insole-image-container {
+	position: relative;
+	width: 100%;
+	height: 600px;
+	max-width: 600px;
+	margin: 0 auto;
+	border: 1px solid #ddd;
+	background-color: #f9f9f9;
+	border-radius: 5px;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.insole-svg-container {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.insole-svg {
+	transform-origin: center;
+}
+
+/* Estilos para a imagem de fundo arrastável nas etapas 2 e 3 */
+.foot-background {
+	cursor: move !important;
+	opacity: 0.9;
+	transition: opacity 0.3s;
+	pointer-events: auto;
+	border: 2px solid transparent;
+	border-image: $gradient-border-diagonal;
+	border-image-slice: 1;
+}
+
+.foot-background:hover {
+	opacity: 1;
+}
+
+.background-container {
+	pointer-events: all;
+}
+
+/* Contorno da palmilha mais visível na etapa de enquadramento */
+#insole-path {
+	stroke-width: 3px;
+	stroke: rgba(33, 25, 21, 0.8);
+	fill: rgba(255, 255, 255, 0.05);
+	pointer-events: none;
+}
+
+/* Destacar contorno da palmilha */
+#insole-path-guides,
+#insole-path-pieces {
+	stroke-width: 2px;
+	stroke: #211915;
+	fill: none;
+	pointer-events: none;
+}
+
+/* Melhorar os controles de zoom */
+.zoom-controls {
+	position: absolute;
+	bottom: 15px;
+	right: 15px;
+	display: flex;
+	gap: 8px;
+	z-index: 10;
+	background: rgba(255, 255, 255, 0.8);
+	padding: 8px;
+	border-radius: 25px;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Instruções mais destacadas */
+.instruction-text {
+	background-color: #fff9c4;
+	padding: 15px;
+	border-radius: 5px;
+	border-left: 4px solid #ffc107;
+	margin-bottom: 20px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.instruction-text strong {
+	color: #d32f2f;
+}

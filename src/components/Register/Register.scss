@@ -1,0 +1,132 @@
+@import '../../styles/variables';
+
+.register-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $gradient-primary;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: $gradient-secondary;
+    opacity: 0.3;
+    animation: gradientShift 8s ease infinite;
+  }
+
+  .register-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-lg;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    h2 {
+      color: $text-primary;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-size: 1.8rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: $text-secondary;
+        font-weight: 500;
+      }
+
+      input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid rgba($primary, 0.1);
+        border-radius: $border-radius-md;
+        transition: $transition-short;
+        background: rgba(255, 255, 255, 0.9);
+
+        &:focus {
+          outline: none;
+          border-color: $primary;
+          box-shadow: 0 0 0 3px rgba($primary, 0.1);
+        }
+      }
+    }
+
+    .register-button {
+      width: 100%;
+      padding: 0.75rem;
+      background: $gradient-accent;
+      color: white;
+      border: none;
+      border-radius: $border-radius-md;
+      font-weight: 600;
+      cursor: pointer;
+      transition: $transition-short;
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: $gradient-hover;
+        opacity: 0;
+        transition: $transition-short;
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+        
+        &::before {
+          opacity: 0.3;
+        }
+      }
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 1rem;
+      color: $text-secondary;
+
+      a {
+        color: $primary;
+        text-decoration: none;
+        font-weight: 500;
+        transition: $transition-short;
+
+        &:hover {
+          color: $primary-light;
+        }
+      }
+    }
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+} 

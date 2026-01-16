@@ -1,0 +1,331 @@
+.users-container {
+  padding: 24px;
+  background: #f5f5f5;
+  min-height: 100vh;
+
+  .users-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .users-title {
+      color: #333;
+      font-weight: 600;
+    }
+
+    .add-user-button {
+      background: linear-gradient(45deg, #4CAF50, #45a049);
+      color: white;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-transform: none;
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: linear-gradient(45deg, #45a049, #4CAF50);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
+      }
+    }
+  }
+
+  .filters-card {
+    margin-bottom: 24px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .MuiCardContent-root {
+      padding: 24px;
+    }
+
+    .MuiTextField-root {
+      .MuiOutlinedInput-root {
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.8);
+      }
+    }
+
+    .MuiFormControl-root {
+      .MuiOutlinedInput-root {
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.8);
+      }
+    }
+  }
+
+  .users-table-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    .MuiTable-root {
+      .MuiTableHead-root {
+        background: #f5f5f5;
+
+        .MuiTableCell-head {
+          color: #333;
+          font-weight: 600;
+          border: none;
+          padding: 16px;
+        }
+      }
+
+      .MuiTableBody-root {
+        .MuiTableRow-root {
+          transition: all 0.3s ease;
+
+          &:hover {
+            background: rgba(0, 0, 0, 0.02);
+          }
+
+          .MuiTableCell-root {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 16px;
+
+            &:last-child {
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .MuiChip-root {
+    font-weight: 500;
+    border-radius: 20px;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+
+    &.MuiChip-colorPrimary {
+      background: #2196f3;
+      color: white;
+    }
+
+    &.MuiChip-colorSecondary {
+      background: #9c27b0;
+      color: white;
+    }
+
+    &.MuiChip-colorSuccess {
+      background: #4caf50;
+      color: white;
+    }
+
+    &.MuiChip-colorError {
+      background: #f44336;
+      color: white;
+    }
+
+    &.MuiChip-colorDefault {
+      background: rgba(0, 0, 0, 0.1);
+      color: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+
+  .MuiIconButton-root {
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    margin: 0 4px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    &.MuiIconButton-colorPrimary:hover {
+      background: rgba(33, 150, 243, 0.1);
+    }
+
+    &.MuiIconButton-colorError:hover {
+      background: rgba(244, 67, 54, 0.1);
+    }
+
+    &.MuiIconButton-colorWarning:hover {
+      background: rgba(255, 152, 0, 0.1);
+    }
+
+    &.MuiIconButton-colorSuccess:hover {
+      background: rgba(76, 175, 80, 0.1);
+    }
+  }
+
+  .MuiDialog-root {
+    .MuiDialog-paper {
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .MuiDialogTitle-root {
+      background: #f5f5f5;
+      color: #333;
+      font-weight: 600;
+      padding: 20px 24px;
+    }
+
+    .MuiDialogContent-root {
+      padding: 24px;
+    }
+
+    .MuiDialogActions-root {
+      padding: 16px 24px;
+      background: rgba(0, 0, 0, 0.02);
+    }
+  }
+
+  .MuiTextField-root {
+    .MuiOutlinedInput-root {
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.8);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      &.Mui-focused {
+        background: white;
+      }
+    }
+  }
+
+  .MuiFormControl-root {
+    .MuiOutlinedInput-root {
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.8);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      &.Mui-focused {
+        background: white;
+      }
+    }
+  }
+
+  .MuiButton-root {
+    border-radius: 8px;
+    text-transform: none;
+    font-weight: 500;
+    padding: 8px 16px;
+
+    &.MuiButton-contained {
+      background: #2196f3;
+      color: white;
+      box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
+
+      &:hover {
+        background: #1976d2;
+        box-shadow: 0 4px 8px rgba(33, 150, 243, 0.4);
+      }
+    }
+
+    &.MuiButton-outlined {
+      border: 2px solid rgba(33, 150, 243, 0.3);
+      color: #2196f3;
+
+      &:hover {
+        border-color: #2196f3;
+        background: rgba(33, 150, 243, 0.1);
+      }
+    }
+  }
+
+  .MuiAlert-root {
+    border-radius: 8px;
+    border: none;
+
+    &.MuiAlert-standardInfo {
+      background: rgba(33, 150, 243, 0.1);
+      color: #1976d2;
+    }
+
+    &.MuiAlert-standardSuccess {
+      background: rgba(76, 175, 80, 0.1);
+      color: #388e3c;
+    }
+
+    &.MuiAlert-standardError {
+      background: rgba(244, 67, 54, 0.1);
+      color: #d32f2f;
+    }
+  }
+
+  // Responsividade
+  @media (max-width: 768px) {
+    padding: 16px;
+
+    .users-header {
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+
+      .users-title {
+        font-size: 1.5rem;
+      }
+    }
+
+    .filters-card {
+      .MuiCardContent-root {
+        padding: 16px;
+      }
+    }
+
+    .users-table-card {
+      .MuiTable-root {
+        .MuiTableHead-root {
+          .MuiTableCell-head {
+            padding: 8px;
+            font-size: 0.75rem;
+          }
+        }
+
+        .MuiTableBody-root {
+          .MuiTableRow-root {
+            .MuiTableCell-root {
+              padding: 8px;
+              font-size: 0.75rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Animações
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .users-header,
+  .filters-card,
+  .users-table-card {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .filters-card {
+    animation-delay: 0.2s;
+  }
+
+  .users-table-card {
+    animation-delay: 0.4s;
+  }
+}

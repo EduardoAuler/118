@@ -1,0 +1,243 @@
+// Estilos para a página de Peças Podais
+
+.podal-parts-container {
+  padding: 2rem 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.podal-parts-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1976d2;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    
+    .MuiSvgIcon-root {
+      font-size: 2.5rem;
+    }
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+.filters-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+  .MuiTextField-root,
+  .MuiFormControl-root {
+    .MuiOutlinedInput-root {
+      border-radius: 8px;
+      
+      &:hover .MuiOutlinedInput-notchedOutline {
+        border-color: #1976d2;
+      }
+      
+      &.Mui-focused .MuiOutlinedInput-notchedOutline {
+        border-color: #1976d2;
+        border-width: 2px;
+      }
+    }
+  }
+}
+
+.stats-chips {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  
+  .MuiChip-root {
+    border-radius: 20px;
+    font-weight: 600;
+    
+    &.MuiChip-outlined {
+      border-width: 2px;
+    }
+  }
+}
+
+.parts-grid {
+  .MuiCard-root {
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+    
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      border-color: #1976d2;
+    }
+    
+    .MuiCardMedia-root {
+      background: #f8f9fa;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 1rem;
+      
+      img {
+        transition: transform 0.3s ease;
+      }
+    }
+    
+    &:hover .MuiCardMedia-root img {
+      transform: scale(1.05);
+    }
+    
+    .MuiCardContent-root {
+      padding: 1.5rem;
+      
+      h6 {
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 0.5rem;
+      }
+      
+      .description {
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+      }
+      
+      .category-chip {
+        border-radius: 16px;
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  
+  h6 {
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  
+  .MuiTypography-body2 {
+    color: #999;
+  }
+}
+
+// Responsividade
+@media (max-width: 768px) {
+  .podal-parts-container {
+    padding: 1rem 0;
+  }
+  
+  .podal-parts-header {
+    margin-bottom: 2rem;
+    
+    h1 {
+      font-size: 2rem;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+  
+  .filters-section {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .stats-chips {
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .parts-grid {
+    .MuiCard-root {
+      .MuiCardContent-root {
+        padding: 1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .podal-parts-header {
+    h1 {
+      font-size: 1.75rem;
+    }
+    
+    .subtitle {
+      font-size: 1rem;
+    }
+  }
+  
+  .filters-section {
+    padding: 1rem;
+  }
+}
+
+// Animações
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.parts-grid .MuiCard-root {
+  animation: fadeInUp 0.6s ease forwards;
+  
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
+  &:nth-child(5) { animation-delay: 0.5s; }
+  &:nth-child(6) { animation-delay: 0.6s; }
+  &:nth-child(7) { animation-delay: 0.7s; }
+  &:nth-child(8) { animation-delay: 0.8s; }
+}
+
+// Cores específicas para cada tipo de peça
+.type-arco {
+  background-color: #4CAF50 !important;
+  color: white !important;
+}
+
+.type-suporte {
+  background-color: #2196F3 !important;
+  color: white !important;
+}
+
+.type-correção {
+  background-color: #FF9800 !important;
+  color: white !important;
+}
+
+.type-prevenção {
+  background-color: #9C27B0 !important;
+  color: white !important;
+}
+
+.type-outros {
+  background-color: #607D8B !important;
+  color: white !important;
+}

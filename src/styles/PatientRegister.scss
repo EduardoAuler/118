@@ -1,0 +1,429 @@
+@import "./_variables";
+
+.patient-register-page {
+  min-height: 100vh;
+  background-color: $background;
+  padding: 24px 0;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: $gradient-primary;
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    opacity: 0.03;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .patient-register-container {
+    position: relative;
+    z-index: 1;
+    padding: 0 16px;
+
+    .patient-register-paper {
+      background-color: $card-bg;
+      border-radius: $border-radius-lg;
+      overflow: hidden;
+      box-shadow: $shadow-md;
+
+      .patient-register-header {
+        background-color: $primary;
+        color: white;
+        padding: 16px 24px;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: $gradient-primary;
+          background-size: 400% 400%;
+          animation: gradientAnimation 15s ease infinite;
+          opacity: 0.2;
+          z-index: 0;
+        }
+
+        h5 {
+          position: relative;
+          z-index: 1;
+          font-weight: 600;
+          margin-bottom: 4px;
+        }
+      }
+
+      .patient-register-stepper {
+        padding: 24px;
+        background-color: $background-light;
+        border-bottom: 1px solid $background-dark;
+
+        .MuiStepLabel-label {
+          font-size: 14px;
+
+          &.Mui-active {
+            color: $primary;
+            font-weight: 600;
+          }
+
+          &.Mui-completed {
+            color: $primary-dark;
+          }
+        }
+
+        .MuiStepIcon-root {
+          &.Mui-active {
+            color: $primary;
+          }
+
+          &.Mui-completed {
+            color: $primary-dark;
+          }
+        }
+      }
+
+      .patient-register-content {
+        padding: 24px;
+        min-height: 400px;
+      }
+
+      .patient-register-buttons {
+        display: flex;
+        justify-content: space-between;
+        padding: 16px 24px;
+        background-color: $background-light;
+        border-top: 1px solid $background-dark;
+
+        .back-button {
+          color: $text-secondary;
+
+          &:hover {
+            background-color: rgba($text-secondary, 0.05);
+          }
+        }
+
+        .next-button,
+        .submit-button {
+          background-color: $primary;
+          color: white;
+          padding: 8px 24px;
+          font-weight: 500;
+          position: relative;
+          overflow: hidden;
+
+          &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: $gradient-primary;
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            opacity: 0.1;
+            z-index: 0;
+          }
+
+          &:hover {
+            background-color: $primary-dark;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+// Estilos para campos de formulário
+.form-section {
+  margin-bottom: 24px;
+
+  .form-section-title {
+    color: $text-primary;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    border-bottom: 2px solid $primary-light;
+    padding-bottom: 8px;
+  }
+
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -8px 16px;
+
+    .form-field {
+      padding: 0 8px;
+      margin-bottom: 16px;
+
+      &.full-width {
+        width: 100%;
+      }
+
+      &.half-width {
+        width: 50%;
+
+        @media (max-width: $breakpoint-md) {
+          width: 100%;
+        }
+      }
+
+      &.third-width {
+        width: 33.33%;
+
+        @media (max-width: $breakpoint-md) {
+          width: 50%;
+        }
+
+        @media (max-width: $breakpoint-sm) {
+          width: 100%;
+        }
+      }
+
+      .field-label {
+        font-size: 14px;
+        color: $text-secondary;
+        margin-bottom: 6px;
+      }
+
+      .MuiInputBase-root {
+        background-color: white;
+      }
+    }
+  }
+}
+
+// Estilos para opções selecionáveis
+.options-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+
+  .option-item {
+    border: 1px solid $background-dark;
+    border-radius: $border-radius-md;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all $transition-short;
+
+    &:hover {
+      border-color: $primary-light;
+    }
+
+    &.selected {
+      background-color: rgba($primary, 0.1);
+      border-color: $primary;
+    }
+
+    .MuiCheckbox-root,
+    .MuiRadio-root {
+      padding: 4px;
+      margin-right: 8px;
+    }
+  }
+}
+
+// Estilos para tabelas
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid $background-dark;
+  }
+
+  th {
+    background-color: $background;
+    font-weight: 600;
+    color: $text-primary;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tbody tr:hover {
+    background-color: rgba($primary, 0.03);
+  }
+}
+
+// Estilos para upload de imagens
+.image-upload-section {
+  .image-preview {
+    width: 100%;
+    height: 300px;
+    background-color: $background;
+    border: 2px dashed $background-dark;
+    border-radius: $border-radius-md;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+
+    &.has-image {
+      border: none;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .upload-icon {
+      font-size: 48px;
+      color: $text-muted;
+      margin-bottom: 12px;
+    }
+
+    .upload-text {
+      color: $text-secondary;
+      font-size: 14px;
+      text-align: center;
+      max-width: 250px;
+    }
+
+    .upload-button {
+      margin-top: 16px;
+      background-color: $primary;
+      color: white;
+    }
+  }
+}
+
+// Estilos para avaliação dos pés
+.foot-arch-option,
+.foot-arch-type {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  border: 2px solid $background-dark;
+  border-radius: $border-radius-md;
+  background-color: white;
+  transition: all $transition-short;
+  cursor: pointer;
+  min-width: 100px;
+
+  &:hover {
+    border-color: $primary-light;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba($primary, 0.15);
+  }
+
+  img {
+    border-radius: $border-radius-sm;
+    margin-bottom: 8px;
+    transition: transform $transition-short;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  .MuiFormControlLabel-root {
+    margin: 0;
+    width: 100%;
+    justify-content: center;
+
+    .MuiFormControlLabel-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: $text-primary;
+    }
+  }
+
+  .MuiRadio-root {
+    padding: 4px;
+    color: $primary;
+
+    &.Mui-checked {
+      color: $primary-dark;
+    }
+  }
+}
+
+// Estilos para visualizações posturais
+.postural-view {
+  .image-preview {
+    width: 100%;
+    height: 250px;
+    background-color: $background;
+    border: 2px dashed $background-dark;
+    border-radius: $border-radius-md;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    transition: all $transition-short;
+
+    &:hover {
+      border-color: $primary-light;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba($primary, 0.1);
+    }
+
+    &.has-image {
+      border: none;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .upload-icon {
+      font-size: 36px;
+      color: $text-muted;
+      margin-bottom: 8px;
+    }
+
+    .upload-text {
+      color: $text-secondary;
+      font-size: 12px;
+      text-align: center;
+      max-width: 200px;
+      margin-bottom: 8px;
+    }
+
+    .upload-button {
+      background-color: $primary;
+      color: white;
+      font-size: 12px;
+      padding: 6px 12px;
+      min-width: auto;
+    }
+  }
+}
