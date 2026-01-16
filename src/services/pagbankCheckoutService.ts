@@ -22,12 +22,33 @@ export interface CheckoutResponse {
 }
 
 class PagBankCheckoutService {
-  // URL base do backend Node (configurável por variável de ambiente)
-  // Em desenvolvimento: http://localhost:4000/api
-  // Em produção: defina REACT_APP_BACKEND_URL com a URL do seu servidor
-  private readonly backendUrl =
-    (process.env.REACT_APP_BACKEND_URL && `${process.env.REACT_APP_BACKEND_URL}/api`) ||
-    'http://localhost:4000/api';
+  // URL base do backend
+  // No Netlify: usa as Netlify Functions automaticamente (/api/*)
+  // No Vercel ou outro: usa REACT_APP_BACKEND_URL
+  // Em desenvolvimento local: http://localhost:4000/api
+  private getBackendUrl(): string {
+    // Se tiver REACT_APP_USE_NETLIFY_FUNCTIONS configurado, usa Netlify Functions
+    if (process.env.REACT_APP_USE_NETLIFY_FUNCTIONS === 'true') {
+      return '/api';
+    }
+    
+    // Se estiver no Netlify (detecta pelo hostname)
+    if (typeof window !== 'undefined' && window.location.hostname.includes('netlify.app')) {
+      return '/api';
+    }
+    
+    // Se tiver REACT_APP_BACKEND_URL configurado, usa ele
+    if (process.env.REACT_APP_BACKEND_URL) {
+      return `${process.env.REACT_APP_BACKEND_URL}/api`;
+    }
+    
+    // Fallback para desenvolvimento local
+    return 'http://localhost:4000/api';
+  }
+
+  private get backendUrl(): string {
+    return this.getBackendUrl();
+  }
 
   /**
    * Gera um ID único para referência
