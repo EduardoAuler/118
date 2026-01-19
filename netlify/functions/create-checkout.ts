@@ -12,6 +12,14 @@ const PAGBANK_API = USE_SANDBOX
   : 'https://api.pagseguro.com';
 
 const handler: Handler = async (event: HandlerEvent, context: HandlerContext) => {
+  console.log('📥 create-checkout function chamada:', {
+    method: event.httpMethod,
+    path: event.path,
+    hasBody: !!event.body,
+    hasToken: !!RAW_TOKEN,
+    apiUrl: PAGBANK_API
+  });
+
   // Permitir CORS
   const headers = {
     'Access-Control-Allow-Origin': '*',

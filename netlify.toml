@@ -7,11 +7,15 @@
   NODE_VERSION = "20"
   CI = "false"
 
+# Redirect de API deve vir ANTES do catch-all para ter prioridade
+# Usa force=true para garantir que APIs não sejam capturadas pelo SPA routing
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
+  force = true
 
+# Catch-all para SPA routing (deve vir por último)
 [[redirects]]
   from = "/*"
   to = "/index.html"
