@@ -15,13 +15,14 @@ import {
 } from "@mui/material";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { auth, db } from "../services/firebaseconfig";
 import "../styles/Login.scss";
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -37,6 +38,24 @@ const Login: React.FC = () => {
     message: "",
     severity: "error",
   });
+
+  // Verificar se foi redirecionado por falta de autenticação
+  useEffect(() => {
+    const state = location.state as { from?: Location; reason?: string } | null;
+    if (state?.from) {
+      setAlert({
+        open: true,
+        message: "Você precisa fazer login para acessar esta página.",
+        severity: "error",
+      });
+    } else if (state?.reason === "account_inactive") {
+      setAlert({
+        open: true,
+        message: "Sua conta está inativa. Entre em contato com o administrador.",
+        severity: "error",
+      });
+    }
+  }, [location]);
 
   const validateForm = () => {
     let valid = true;
@@ -86,7 +105,10 @@ const Login: React.FC = () => {
           localStorage.setItem('tenantId', userCredential.user.uid);
         }
         
-        navigate("/patient-list");
+        // Redirecionar para a página que tentou acessar ou para patient-list
+        const state = location.state as { from?: Location } | null;
+        const redirectTo = state?.from?.pathname || "/patient-list";
+        navigate(redirectTo, { replace: true });
       } catch (error: any) {
         console.error("Erro ao fazer login:", error);
 
