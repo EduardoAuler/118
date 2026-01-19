@@ -499,9 +499,9 @@ class PagBankService {
 
       console.log('🚀 Criando checkout no PagBank:', checkoutData);
 
-      // Sempre usar Netlify Function para evitar CORS
+      // Sempre usar Netlify Function via /api/* (redirecionado pelo netlify.toml)
       // A function funciona tanto em dev quanto em produção
-      const response = await fetch('/.netlify/functions/create-checkout', {
+      const response = await fetch('/api/create-checkout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -520,14 +520,36 @@ class PagBankService {
         };
       }
 
-      const responseData = await response.json();
+      let responseData: any;
+      try {
+        responseData = await response.json();
+      } catch (e) {
+        const text = await response.text();
+        console.error('❌ Resposta não é JSON:', text);
+        return {
+          success: false,
+          error: `Erro ${response.status}: ${text || 'Resposta inválida do servidor'}`
+        };
+      }
 
       if (!response.ok) {
         console.error('❌ Erro na API PagBank:', responseData);
+        
+        // Mensagens mais claras para erros comuns
+        let errorMessage = responseData.error || responseData.errors?.[0]?.message || `Erro ${response.status}`;
+        
+        if (response.status === 403) {
+          errorMessage = 'Token do PagBank inválido. Verifique a configuração no Netlify.';
+        } else if (response.status === 401) {
+          errorMessage = 'Token do PagBank não autorizado. Verifique se o token está correto.';
+        } else if (response.status === 500 && responseData.error?.includes('PAGBANK_TOKEN')) {
+          errorMessage = 'Token do PagBank não configurado. Configure PAGBANK_TOKEN no Netlify.';
+        }
+        
         return {
           success: false,
-          error: responseData.errors?.[0]?.message || `Erro ${response.status}`,
-          errors: responseData.errors
+          error: errorMessage,
+          errors: responseData.errors || []
         };
       }
 

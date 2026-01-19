@@ -24,7 +24,11 @@ if (firebaseConfig.projectId) {
 }
 
 const PAGBANK_TOKEN = (process.env.PAGBANK_TOKEN || process.env.REACT_APP_PAGBANK_TOKEN || '').trim();
-const PAGBANK_API = 'https://api.pagseguro.com';
+// Suporta sandbox via variável de ambiente (PAGBANK_SANDBOX=true usa sandbox)
+const USE_SANDBOX = process.env.PAGBANK_SANDBOX === 'true';
+const PAGBANK_API = USE_SANDBOX 
+  ? 'https://sandbox.api.pagseguro.com' 
+  : 'https://api.pagseguro.com';
 
 /**
  * Handler para webhooks do PagBank
